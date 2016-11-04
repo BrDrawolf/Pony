@@ -158,9 +158,15 @@ public class Cliente extends Proceso implements ActionListener, Runnable {
 
         btnSolicitar.setEnabled(false);
 
-        if(MicroKernel.obtenerProcesoDestino() != -1)
-            MicroKernel.send(MicroKernel.obtenerProcesoDestino(), mensaje);
-        else {
+        if(MicroKernel.obtenerProcesoDestino() != -1){
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    MicroKernel.send(MicroKernel.obtenerProcesoDestino(), mensaje);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        } else {
             btnSolicitar.setEnabled(true);
             imprimirMensaje("Servidores Ocupados o Inexistentes...");
         }

@@ -60,7 +60,7 @@ public class MicroKernel implements ActionListener, Runnable {
     @Override
     public void run() {}
 
-    public static void send(int procesoDestino, byte[] mensaje) throws InterruptedException {
+    public static synchronized void send(int procesoDestino, byte[] mensaje) throws InterruptedException {
         imprimirMensaje("Recibido mensaje proveniente de la red");
         Thread.sleep(1500);
 
